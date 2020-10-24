@@ -5,6 +5,8 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 
+import { join } from 'path';
+
 async function bootstrap() {
   // express
   // const app = await NestFactory.create(AppModule);
@@ -15,6 +17,11 @@ async function bootstrap() {
   );
 
   app.setGlobalPrefix('/api');
+
+  app.useStaticAssets({
+    root: join(__dirname, '..', '../client/dist/client'),
+    prefix: '/',
+  });
   await app.listen(8080, '0.0.0.0');
 }
 bootstrap();
